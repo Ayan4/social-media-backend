@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dbConnect = require("./config/dbConnect");
+const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const userRoute = require("./routes/users.router");
@@ -11,15 +12,25 @@ const postRoute = require("./routes/post.router");
 
 dbConnect();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("common"));
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    msg: "Hello from sokal media server",
+    success: true
+  });
+});
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(8800, () => {
-  console.log("Backend server is running!");
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log("Backend server is running! " + PORT);
 });
