@@ -5,7 +5,8 @@ const {
   deletePost,
   likePost,
   getPost,
-  getAllPosts
+  getAllPosts,
+  getUserPosts
 } = require("../controllers/post.controller");
 
 router.post("/", createPost);
@@ -14,5 +15,6 @@ router.delete("/:id", deletePost);
 router.post("/:id/like", likePost);
 router.get("/:id", getPost);
 router.get("/all/:userId", getAllPosts);
+router.get("/profile/:username", getUserPosts);
 
 module.exports = router;
