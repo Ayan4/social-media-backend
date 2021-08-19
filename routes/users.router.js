@@ -8,11 +8,11 @@ const {
   getFriends
 } = require("../controllers/users.controller");
 
-router.post("/:id", updateUser);
-router.delete("/:id", deleteUser);
 router.get("/", getUser);
+router.get("/friends/:userId", getFriends);
+router.post("/:id", updateUser);
 router.post("/:id/follow", followUser);
 router.post("/:id/unfollow", unFollowUser);
-router.post("/friends/:userId", getFriends);
+router.delete("/:id", deleteUser);
 
 module.exports = router;
