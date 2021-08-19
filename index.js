@@ -6,6 +6,7 @@ const dbConnect = require("./config/dbConnect");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const multer = require("multer");
 const userRoute = require("./routes/users.router");
 const authRoute = require("./routes/auth.router");
 const postRoute = require("./routes/post.router");
@@ -17,6 +18,27 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("common"));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  try {
+    return res
+      .status(200)
+      .json({ success: true, message: "File uploaded sucessfully" });
+  } catch (err) {
+    res.status(400).json({ success: false, err });
+  }
+});
 
 app.get("/", (req, res) => {
   res.status(200).json({
