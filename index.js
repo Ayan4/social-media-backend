@@ -10,9 +10,11 @@ const multer = require("multer");
 const userRoute = require("./routes/users.router");
 const authRoute = require("./routes/auth.router");
 const postRoute = require("./routes/post.router");
+const path = require("path");
 
 dbConnect();
 
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
