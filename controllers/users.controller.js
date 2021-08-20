@@ -12,7 +12,7 @@ exports.updateUser = async (req, res) => {
       }
     }
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, {
+      await User.findByIdAndUpdate(req.params.id, {
         $set: req.body
       });
       res
@@ -50,6 +50,15 @@ exports.getUser = async (req, res) => {
     res.status(200).json(other);
   } catch (err) {
     res.status(500).json(err);
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json({ success: true, users });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
   }
 };
 
