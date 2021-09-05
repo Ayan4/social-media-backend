@@ -11,7 +11,7 @@ const {
 
 router.post("/", createPost);
 router.post("/:id", updatePost);
-router.post("delete/:id", deletePost);
+router.post("/delete/:id", deletePost);
 router.post("/:id/like", likePost);
 router.get("/:id", getPost);
 router.get("/all/:userId", getAllPosts);
